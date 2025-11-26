@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito - Tienda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+    <div id="carrito"></div>
+    <button id="comprarBtn">Realizar Compra</button>
+
+    <script type="module">
+        import { checkAuth } from './js/auth.js';
+        import { getCarrito, getToken, saveCarrito } from './js/store.js';
+        import './js/cart.js';
+
+        checkAuth();
+
+        const carritoDiv = document.getElementById('carrito');
+        const carrito = getCarrito();
+        carrito.forEach(p => {
+            const div = document.createElement('div');
+            div.innerHTML = `<h3>${p.nombre}</h3><p>Precio: $${p.precio}</p>`;
+            carritoDiv.appendChild(div);
+        });
+
+        document.getElementById('comprarBtn').addEventListener('click', async () => {
+            const token = getToken();
+            const response = await fetch('../backend/carrito.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({token, carrito})
+            });
+            const data = await response.json();
+            alert(data.message);
+            if(data.success){
+                saveCarrito([]);
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

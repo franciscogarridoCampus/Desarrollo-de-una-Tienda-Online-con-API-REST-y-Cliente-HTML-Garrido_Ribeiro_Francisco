@@ -1,0 +1,17 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+img {
+    border-radius: 6px;
+    transition: transform .2s;
+}
+
+img:hover {
+    transform: scale(1.05);
+}

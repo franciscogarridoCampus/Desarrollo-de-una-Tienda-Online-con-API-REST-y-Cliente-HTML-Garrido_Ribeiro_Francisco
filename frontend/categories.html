@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorías - Tienda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Productos por Categoría</h1>
+    <div id="productos"></div>
+
+    <script type="module">
+        import { checkAuth } from './js/auth.js';
+        import { getTienda, getCarrito, saveCarrito } from './js/store.js';
+        import { renderProductos } from './js/ui.js';
+
+        checkAuth();
+        const tienda = getTienda();
+        const params = new URLSearchParams(window.location.search);
+        const categoriaId = parseInt(params.get('categoria'));
+        const productosDiv = document.getElementById('productos');
+
+        renderProductos(
+            productosDiv,
+            tienda.productos.filter(p => p.id_categoria === categoriaId),
+            (p) => {
+                const carrito = getCarrito();
+                carrito.push(p);
+                saveCarrito(carrito);
+                alert('Producto añadido al carrito');
+            }
+        );
+    </script>
+</body>
+</html>

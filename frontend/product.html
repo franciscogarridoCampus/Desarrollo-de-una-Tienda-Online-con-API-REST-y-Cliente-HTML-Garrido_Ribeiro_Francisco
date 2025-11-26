@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Producto - Tienda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="producto"></div>
+
+    <script type="module">
+        import { checkAuth } from './js/auth.js';
+        import { getTienda, getCarrito, saveCarrito } from './js/store.js';
+        import { renderProductos } from './js/ui.js';
+        import './js/product.js';
+
+        checkAuth();
+
+        const tienda = getTienda();
+        const params = new URLSearchParams(window.location.search);
+        const prodId = parseInt(params.get('id'));
+        const producto = tienda.productos.find(p => p.id === prodId);
+
+        const productoDiv = document.getElementById('producto');
+        productoDiv.innerHTML = `
+            <h1>${producto.nombre}</h1>
+            <img src="${producto.imagen}" alt="${producto.nombre}" />
+            <p>Precio: $${producto.precio}</p>
+            <button id="addCartBtn">Añadir al carrito</button>
+        `;
+
+        document.getElementById('addCartBtn').addEventListener('click', () => {
+            const carrito = getCarrito();
+            carrito.push(producto);
+            saveCarrito(carrito);
+            alert('Producto añadido al carrito');
+        });
+    </script>
+</body>
+</html>
