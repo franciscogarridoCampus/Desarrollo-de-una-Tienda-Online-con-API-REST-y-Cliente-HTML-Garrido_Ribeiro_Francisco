@@ -1,8 +1,7 @@
 const productosService = require('../services/productosService');
 
 exports.obtenerTodos = (req, res) => {
-  const productos = productosService.listarConCategorias();
-  res.json(productos);
+  res.json(productosService.listar());
 };
 
 exports.obtenerPorId = (req, res) => {

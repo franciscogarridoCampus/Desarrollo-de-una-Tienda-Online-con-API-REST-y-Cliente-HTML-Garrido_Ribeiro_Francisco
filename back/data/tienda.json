@@ -1,0 +1,29 @@
+{
+  "categorias": [
+    { "id": 1, "nombre": "Periféricos" },
+    { "id": 2, "nombre": "Almacenamiento" }
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Teclado mecánico",
+      "precio": 49.99,
+      "categoria": "Periféricos",
+      "destacado": true
+    },
+    {
+      "id": 2,
+      "nombre": "Ratón gamer",
+      "precio": 29.99,
+      "categoria": "Periféricos",
+      "destacado": true
+    },
+    {
+      "id": 3,
+      "nombre": "Disco SSD",
+      "precio": 79.99,
+      "categoria": "Almacenamiento",
+      "destacado": false
+    }
+  ]
+}

@@ -1,22 +1,27 @@
-//Clase completa, hacer las demás
-const carrtitosService = require('../services/carritosService');
-exports.obtenerTodos = (req, res) => {
-const carritos = carritosService.listar();
-res.json(carritos);
-};
-exports.obtenerPorId = (req, res) => {
-const carrito = carritosService.buscarPorId(parseInt(req.params.id));
-carrito ? res.json(carrito) : res.status(404).json({ mensaje: 'No encontrado' });
-};
-exports.crear = (req, res) => {
-const nuevo = carritosService.crear(req.body);
-res.status(201).json(nuevo);
-};
-exports.actualizar = (req, res) => {
-const actualizado = carritosService.actualizar(parseInt(req.params.id), req.body);
-actualizado ? res.json(actualizado) : res.status(404).json({ mensaje: 'No encontrado' });
-};
-exports.eliminar = (req, res) => {
-const eliminado = productosService.eliminar(parseInt(req.params.id));
-eliminado ? res.json(eliminado) : res.status(404).json({ mensaje: 'No encontrado' });
+const { leerJSON } = require('../services/carritosService');
+const path = require('path');
+const rutaTienda = path.join(__dirname, '../data/tienda.json');
+
+exports.validarCarrito = (req, res) => {
+  const token = req.headers['authorization'];
+  if (token !== global.TOKEN) {
+    return res.status(401).json({ mensaje: 'Token inválido' });
+  }
+
+  const carrito = req.body;
+  const tienda = leerJSON(rutaTienda);
+  let valido = true;
+
+  carrito.forEach(item => {
+    const producto = tienda.productos.find(p => p.id === item.id);
+    if (!producto || producto.precio !== item.precio) {
+      valido = false;
+    }
+  });
+
+  if (valido) {
+    res.json({ mensaje: 'Carrito válido' });
+  } else {
+    res.status(400).json({ mensaje: 'Precios manipulados' });
+  }
 };

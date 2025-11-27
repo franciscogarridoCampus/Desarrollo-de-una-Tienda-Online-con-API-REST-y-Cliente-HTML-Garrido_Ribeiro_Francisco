@@ -1,55 +1,44 @@
 const fs = require("fs");
 const path = require("path");
-const ruta = path.join(__dirname, "../data/productos.json");
+const ruta = path.join(__dirname, "../data/tienda.json");
 
 function leerJSON(ruta) {
   return JSON.parse(fs.readFileSync(ruta, "utf-8"));
 }
 
-function leer() {
-  const data = fs.readFileSync(ruta, "utf-8");
-  return JSON.parse(data);
-}
-function guardar(datos) {
+function guardarJSON(datos) {
   fs.writeFileSync(ruta, JSON.stringify(datos, null, 2));
 }
-/*
-exports.listarConCategorias = () => {
-  const productos = leerJSON(rutaProductos);
-  const categorias = leerJSON(rutaCategorias);
 
-  return productos.map((p) => {
-    const categoria = categorias.find((c) => c.id === p.categoriaId);
-    return {
-      ...p,
-      categoria: categoria ? categoria.nombre : "Sin categoría",
-    };
-  });
-};
-*/
+exports.listar = () => leerJSON(ruta).productos;
 
-exports.listarConCategorias = () => leer();
-exports.buscarPorId = (id) => leer().find((p) => p.id === id);
+exports.buscarPorId = (id) => leerJSON(ruta).productos.find(p => p.id === id);
+
 exports.crear = (nuevo) => {
-  const datos = leer();
-  nuevo.id = datos.length ? Math.max(...datos.map((p) => p.id)) + 1 : 1;
-  datos.push(nuevo);
-  guardar(datos);
+  const tienda = leerJSON(ruta);
+  const productos = tienda.productos;
+  nuevo.id = productos.length ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+  productos.push(nuevo);
+  guardarJSON(tienda);
   return nuevo;
 };
+
 exports.actualizar = (id, cambios) => {
-  const datos = leer();
-  const index = datos.findIndex((p) => p.id === id);
+  const tienda = leerJSON(ruta);
+  const productos = tienda.productos;
+  const index = productos.findIndex(p => p.id === id);
   if (index === -1) return null;
-  datos[index] = { ...datos[index], ...cambios };
-  guardar(datos);
-  return datos[index];
+  productos[index] = { ...productos[index], ...cambios };
+  guardarJSON(tienda);
+  return productos[index];
 };
+
 exports.eliminar = (id) => {
-  const datos = leer();
-  const index = datos.findIndex((p) => p.id === id);
+  const tienda = leerJSON(ruta);
+  const productos = tienda.productos;
+  const index = productos.findIndex(p => p.id === id);
   if (index === -1) return null;
-  const eliminado = datos.splice(index, 1);
-  guardar(datos);
+  const eliminado = productos.splice(index, 1);
+  guardarJSON(tienda);
   return eliminado[0];
 };

@@ -1,22 +1,24 @@
-//Clase completa, hacer las demás
-const clientesService = require('../services/clientesService');
-exports.obtenerTodos = (req, res) => {
-const clientes = clientesService.listar();
-res.json(clientes);
-};
-exports.obtenerPorId = (req, res) => {
-const cliente = clientesService.buscarPorId(parseInt(req.params.id));
-cliente ? res.json(cliente) : res.status(404).json({ mensaje: 'No encontrado' });
-};
-exports.crear = (req, res) => {
-const nuevo = clientesService.crear(req.body);
-res.status(201).json(nuevo);
-};
-exports.actualizar = (req, res) => {
-const actualizado = clientesService.actualizar(parseInt(req.params.id), req.body);
-actualizado ? res.json(actualizado) : res.status(404).json({ mensaje: 'No encontrado' });
-};
-exports.eliminar = (req, res) => {
-const eliminado = clientesService.eliminar(parseInt(req.params.id));
-eliminado ? res.json(eliminado) : res.status(404).json({ mensaje: 'No encontrado' });
+const { leerJSON } = require('../services/clientesService');
+const path = require('path');
+const rutaUsuarios = path.join(__dirname, '../data/usuarios.json');
+const rutaTienda = path.join(__dirname, '../data/tienda.json');
+const rutaClientes = path.join(__dirname, '../data/clientes.json');
+
+exports.login = (req, res) => {
+  const { usuario, password } = req.body;
+  const usuarios = leerJSON(rutaUsuarios);
+
+  const encontrado = usuarios.find(u => u.usuario === usuario && u.password === password);
+
+  if (encontrado) {
+    const tienda = leerJSON(rutaTienda);
+    const clientes = leerJSON(rutaClientes);
+    res.json({
+      token: global.TOKEN,
+      tienda,
+      clientes
+    });
+  } else {
+    res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+  }
 };
