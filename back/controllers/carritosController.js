@@ -8,20 +8,18 @@ exports.validarCarrito = (req, res) => {
     return res.status(401).json({ mensaje: 'Token inválido' });
   }
 
-  const carrito = req.body;
+  const carritoCliente = req.body.carrito; // cliente envía { carrito: [...] }
   const tienda = leerJSON(rutaTienda);
-  let valido = true;
 
-  carrito.forEach(item => {
-    const producto = tienda.productos.find(p => p.id === item.id);
-    if (!producto || producto.precio !== item.precio) {
-      valido = false;
+  let total = 0;
+
+  for (let item of carritoCliente) {
+    const productoReal = tienda.productos.find(p => p.id === item.id);
+    if (!productoReal) {
+      return res.status(400).json({ mensaje: `Producto ${item.nombre || item.id} no existe` });
     }
-  });
-
-  if (valido) {
-    res.json({ mensaje: 'Carrito válido' });
-  } else {
-    res.status(400).json({ mensaje: 'Precios manipulados' });
+    total += productoReal.precio; // usar precio real del servidor
   }
+
+  res.json({ mensaje: 'Compra validada', total });
 };
