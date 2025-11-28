@@ -1,0 +1,22 @@
+h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+
+#carritoContainer .card {
+  background-color: #cce5ff;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform .15s ease, box-shadow .15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+}
+
+/* Botones */
+#comprarBtn { margin-right: 10px; }
+
+.navbar.bg-primary {
+  background-color: #28a745 !important; 
+  padding: 1rem 2rem;
+}
+.navbar .navbar-brand { font-size: 1.8rem; font-weight: 600; }

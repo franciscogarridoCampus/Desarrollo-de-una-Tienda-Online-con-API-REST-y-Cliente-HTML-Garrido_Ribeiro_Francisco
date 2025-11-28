@@ -1,5 +1,4 @@
 [
   { "usuario": "francisco", "password": "1234" },
-  { "usuario": "carlos", "password": "123" },
-  { "usuario": "pablo", "password": "123" }
+  { "usuario": "carlos", "password": "123" }
 ]

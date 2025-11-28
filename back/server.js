@@ -1,21 +1,22 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-app.use(express.json());
+const express = require('express'); // Importa Express para crear el servidor
+const path = require('path');       // Importa path para manejar rutas de archivos
+const app = express();              // Crea la app de Express
 
-const cors = require('cors');
-app.use(cors());
+app.use(express.json());            // Permite que el servidor reciba JSON en las peticiones
 
-// Token global
+const cors = require('cors');       
+app.use(cors());                    // Habilita CORS para permitir peticiones desde otro origen
+
+// Token global para autenticación simulada
 global.TOKEN = "123456789"; 
 
-// Rutas
-app.use('/productos', require('./routes/productosRoutes'));
-app.use('/clientes', require('./routes/clientesRoutes'));
-app.use('/carritos', require('./routes/carritosRoutes'));
+// Rutas de la API
+app.use('/productos', require('./routes/productosRoutes')); // Rutas de productos
+app.use('/clientes', require('./routes/clientesRoutes'));   // Rutas de clientes (login)
+app.use('/carritos', require('./routes/carritosRoutes'));   // Rutas de carritos de compra
 
-// Servir archivos estáticos (imágenes) desde la carpeta 'front/img'
+// Servir imágenes desde la carpeta front/img
 app.use('/img', express.static(path.join(__dirname, '/front/img')));
 
-// Servidor
+// Inicia el servidor en el puerto 3000
 app.listen(3000, () => console.log('Servidor escuchando en http://localhost:3000'));

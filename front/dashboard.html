@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard - Tienda</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="scss/main.css">
@@ -21,10 +21,36 @@
   </div>
 </nav>
 
-<div class="container mt-4">
-  <h2>Productos Destacados</h2>
-  <div class="row" id="productosContainer"></div>
-</div>
+<main class="container mt-4">
+
+  <!-- DESTACADOS -->
+  <section>
+    <h2 class="mb-3">Productos Destacados</h2>
+
+    <div class="destacados-slider">
+      <button class="slider-btn left" id="slideLeft" aria-label="Anterior">❮</button>
+
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack"></div>
+      </div>
+
+      <button class="slider-btn right" id="slideRight" aria-label="Siguiente">❯</button>
+    </div>
+  </section>
+
+  <!-- RECOMENDADOS -->
+  <section>
+    <h3 class="mt-5">Productos Recomendados</h3>
+    <div class="row mt-3" id="recomendadosContainer"></div>
+  </section>
+
+  <!-- CATEGORÍAS (tarjetas con imágenes grandes) -->
+  <section>
+    <h3 class="mt-4">Categorías</h3>
+    <div class="row g-3 mt-2" id="categoriasImgContainer"></div>
+  </section>
+
+</main>
 
 <script src="js/dashboard.js"></script>
 </body>

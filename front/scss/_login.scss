@@ -1,0 +1,22 @@
+body.bg-light { background-color: #f8f9fa; }
+
+.card {
+  background-color: #007bff; // azul login
+  color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Inputs */
+.card .form-control {
+  background-color: #ffffff33;
+  color: #fff;
+  border: none;
+}
+
+/* Botón login */
+.card .btn-primary {
+  background-color: #0056b3;
+  border: none;
+}

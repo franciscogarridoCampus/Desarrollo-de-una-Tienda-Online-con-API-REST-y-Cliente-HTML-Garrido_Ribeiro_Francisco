@@ -1,45 +1,60 @@
+// js/categorias.js
+
+// =====================
+// 1) AUTENTICACIÓN Y DATOS
+// =====================
+// Obtenemos token y datos de la tienda desde localStorage
 const token = localStorage.getItem("token");
 const tienda = JSON.parse(localStorage.getItem("tienda"));
+
+// Si no hay token o datos de tienda, redirigimos al login
 if (!token || !tienda) window.location.href = "login.html";
 
+// Contenedores y elementos de filtro
 const productosContainer = document.getElementById("productosContainer");
 const categoryFilter = document.getElementById("categoryFilter");
 
-// Mostrar las categorías en el filtro
+// =====================
+// 2) MOSTRAR CATEGORÍAS EN EL SELECT
+// =====================
 function mostrarCategorias() {
-  // Limpiar el filtro
-  categoryFilter.innerHTML = `<option value="all">Todos</option>`; // Resetear el filtro de categorías
+  // Opción por defecto "Todos"
+  categoryFilter.innerHTML = `<option value="all">Todos</option>`;
 
+  // Añadimos cada categoría como opción
   tienda.categorias.forEach(categoria => {
-    // Agregar la categoría al filtro
     const option = document.createElement("option");
     option.value = categoria.id;
-    option.textContent = `${categoria.nombre}`;
+    option.textContent = categoria.nombre;
     categoryFilter.appendChild(option);
   });
 
-  // Mostrar los productos filtrados según la categoría seleccionada
+  // Listener para cambiar el filtro
   categoryFilter.addEventListener("change", () => {
-    const selectedCategory = categoryFilter.value;
-    if (selectedCategory === "all") {
-      mostrarProductos(tienda.productos); // Mostrar todos los productos
-    } else {
-      const productosFiltrados = tienda.productos.filter(p => p.id_categoria === parseInt(selectedCategory));
+    const selected = categoryFilter.value;
+    if (selected === "all") mostrarProductos(tienda.productos);
+    else {
+      const productosFiltrados = tienda.productos.filter(
+        p => p.id_categoria === parseInt(selected)
+      );
       mostrarProductos(productosFiltrados);
     }
   });
 
-  // Inicializar mostrando todos los productos
+  // Mostrar todos los productos al cargar
   mostrarProductos(tienda.productos);
 }
 
-// Mostrar los productos en el contenedor
+// =====================
+// 3) FUNCIÓN PARA MOSTRAR PRODUCTOS
+// =====================
 function mostrarProductos(productos) {
-  productosContainer.innerHTML = ""; // Limpiar productos anteriores
+  productosContainer.innerHTML = "";
 
   productos.forEach(producto => {
     const col = document.createElement("div");
     col.className = "col-md-4 mb-3";
+
     col.innerHTML = `
       <div class="card h-100 producto-tarjeta" data-id="${producto.id}" style="cursor:pointer;">
         <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
@@ -49,42 +64,56 @@ function mostrarProductos(productos) {
           <button class="btn btn-success add-to-cart" data-id="${producto.id}">Añadir al carrito</button>
         </div>
       </div>`;
+
     productosContainer.appendChild(col);
   });
 
-  // Hacer clic en una tarjeta de producto para ir a su página de detalle
+  // =====================
+  // 4) CLICK EN PRODUCTO PARA VER DETALLE
+  // =====================
   document.querySelectorAll(".producto-tarjeta").forEach(card => {
     card.addEventListener("click", (e) => {
-      // Evitar que el clic en el botón "Añadir al carrito" active la tarjeta
-      if (e.target.classList.contains("add-to-cart")) return;
-
+      if (e.target.classList.contains("add-to-cart")) return; // Ignorar botón
       const productoId = parseInt(card.dataset.id);
       localStorage.setItem("productoSeleccionado", productoId);
-      window.location.href = "product.html"; // Redirigir a la página de producto
+      window.location.href = "product.html";
     });
   });
 
-  // Añadir productos al carrito
+  // =====================
+  // 5) AÑADIR PRODUCTO AL CARRITO
+  // =====================
   document.querySelectorAll(".add-to-cart").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      e.stopPropagation(); // Evitar que el clic en "Añadir al carrito" active la tarjeta
+      e.stopPropagation(); // Evitar abrir detalle
       const productoId = parseInt(btn.dataset.id);
       const producto = tienda.productos.find(p => p.id === productoId);
-      
-      // Obtener el carrito del localStorage y añadir el producto
       let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
       carrito.push(producto);
       localStorage.setItem("carrito", JSON.stringify(carrito));
-      
       alert(`${producto.nombre} añadido al carrito`);
     });
   });
 }
 
-// Mostrar las categorías al cargar la página
+// =====================
+// 6) FILTRO AUTOMÁTICO DESDE DASHBOARD
+// =====================
 mostrarCategorias();
 
-// Logout
+const preselected = localStorage.getItem("selectedCategory");
+if (preselected) {
+  categoryFilter.value = preselected;
+  const productosFiltrados = tienda.productos.filter(
+    p => p.id_categoria === parseInt(preselected)
+  );
+  mostrarProductos(productosFiltrados);
+  localStorage.removeItem("selectedCategory"); // Limpiar para la próxima visita
+}
+
+// =====================
+// 7) LOGOUT
+// =====================
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.clear();
   window.location.href = "login.html";

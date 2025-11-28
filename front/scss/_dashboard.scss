@@ -1,0 +1,132 @@
+/* Header - navbar verde y más grande */
+.navbar.bg-primary {
+  background-color: #28a745 !important; // Verde
+  padding: 1rem 2rem; // Más alto que el default
+}
+
+.navbar .navbar-brand {
+  font-size: 1.8rem; // Marca más grande
+  font-weight: 600;
+}
+
+.navbar .btn-outline-light {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* Titulares de secciones */
+h2, h3 {
+  font-weight: 700; // Negrita
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Slider destacados */
+.destacados-slider {
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+
+  .slider-viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slider-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.45s cubic-bezier(.22,.9,.25,1);
+    transform: translateX(0);
+  }
+
+  .slider-item {
+    min-width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .slider-btn {
+    position: absolute;
+    top: 45%;
+    z-index: 10;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    &.left { left: 8px; }
+    &.right { right: 8px; }
+
+    &:hover { transform: scale(1.05); }
+  }
+}
+
+/* Tarjetas de producto */
+.producto-tarjeta {
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #cce5ff; // Azul claro
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  }
+
+  .card-body { min-height: 120px; }
+}
+
+/* Tarjetas de categoría grandes */
+.category-card {
+  cursor: pointer;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform .12s ease, box-shadow .12s ease;
+
+  img {
+    width: 100%;
+    height: 160px; // Ajuste más pequeño para verse completo
+    object-fit: cover;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .card-body { padding: 10px; }
+}
+
+/* Responsivos */
+@media (max-width: 576px) {
+  .category-card img { height: 120px; }
+  .destacados-slider .slider-btn {
+    top: 42%;
+    width: 38px;
+    height: 38px;
+    font-size:18px;
+  }
+
+  .navbar .navbar-brand { font-size: 1.5rem; }
+  .navbar .btn-outline-light { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.3rem; }
+}

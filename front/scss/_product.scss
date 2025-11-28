@@ -23,4 +23,21 @@
       }
     }
   }
+
+  /* Tarjeta con fondo azul */
+  .card {
+    background-color: #cce5ff; 
+    border-radius: 8px;
+    padding: 1rem;
+  }
+}
+
+/* Header navbar verde y más grande */
+.navbar.bg-primary {
+  background-color: #28a745 !important; 
+  padding: 1rem 2rem;
+}
+.navbar .navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 600;
 }

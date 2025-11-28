@@ -1,19 +1,34 @@
+// js/cart.js
+
+// =====================
+// 1) AUTENTICACIÓN Y DATOS
+// =====================
+// Obtenemos token y datos de la tienda desde localStorage
 const token = localStorage.getItem("token");
 const tienda = JSON.parse(localStorage.getItem("tienda"));
+
+// Si no hay token o datos de tienda, redirigimos al login
 if (!token || !tienda) window.location.href = "login.html";
 
+// Obtenemos carrito del localStorage o inicializamos vacío
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const carritoContainer = document.getElementById("carritoContainer");
 
+// =====================
+// 2) RENDERIZAR CARRITO
+// =====================
 function renderCarrito() {
   carritoContainer.innerHTML = "";
+
+  // Si está vacío, mostrar mensaje
   if (carrito.length === 0) {
     carritoContainer.innerHTML = "<p>El carrito está vacío.</p>";
     return;
   }
 
+  // Recorrer cada producto del carrito
   carrito.forEach(p => {
-    // Buscar el producto en la tienda para obtener precio real
+    // Obtener datos reales del producto en la tienda
     const productoReal = tienda.productos.find(prod => prod.id === p.id);
     const precioReal = productoReal ? productoReal.precio : 0;
 
@@ -31,16 +46,19 @@ function renderCarrito() {
   });
 }
 
+// Llamamos a la función para mostrar carrito al cargar
 renderCarrito();
 
-// Comprar
+// =====================
+// 3) REALIZAR COMPRA
+// =====================
 document.getElementById("comprarBtn").addEventListener("click", async () => {
   if (carrito.length === 0) {
     alert("El carrito está vacío.");
     return;
   }
 
-  // Enviar solo id y nombre al backend
+  // Preparamos datos para enviar al servidor
   const carritoParaServidor = carrito.map(p => ({
     id: p.id,
     nombre: p.nombre
@@ -57,6 +75,7 @@ document.getElementById("comprarBtn").addEventListener("click", async () => {
     });
 
     const data = await res.json();
+
     if (res.ok) {
       alert(`Compra realizada con éxito! Total: $${data.total.toFixed(2)}`);
       carrito = [];
@@ -71,7 +90,9 @@ document.getElementById("comprarBtn").addEventListener("click", async () => {
   }
 });
 
-// Vaciar carrito
+// =====================
+// 4) VACIAR CARRITO
+// =====================
 document.getElementById("vaciarBtn").addEventListener("click", () => {
   if (carrito.length === 0) {
     alert("El carrito ya está vacío.");
@@ -86,7 +107,9 @@ document.getElementById("vaciarBtn").addEventListener("click", () => {
   }
 });
 
-// Cerrar sesión
+// =====================
+// 5) CERRAR SESIÓN
+// =====================
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.clear();
   window.location.href = "login.html";
