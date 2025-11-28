@@ -1,5 +1,5 @@
 const token = localStorage.getItem("token");
-const tienda = JSON.parse(localStorage.getItem("tienda")); // precios reales
+const tienda = JSON.parse(localStorage.getItem("tienda"));
 if (!token || !tienda) window.location.href = "login.html";
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -21,6 +21,7 @@ function renderCarrito() {
     col.className = "col-md-4 mb-3";
     col.innerHTML = `
       <div class="card">
+        <img src="${productoReal.imagen}" class="card-img-top" alt="${productoReal.nombre}">
         <div class="card-body">
           <h5 class="card-title">${p.nombre}</h5>
           <p class="card-text">Precio: $${precioReal.toFixed(2)}</p>
@@ -64,7 +65,7 @@ document.getElementById("comprarBtn").addEventListener("click", async () => {
     } else {
       alert(data.mensaje);
     }
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     alert("Error al procesar la compra");
   }

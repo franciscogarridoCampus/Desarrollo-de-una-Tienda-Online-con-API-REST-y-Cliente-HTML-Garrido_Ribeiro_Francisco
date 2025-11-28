@@ -7,14 +7,15 @@ if (!token || !tienda) window.location.href = "login.html";
 
 const productosContainer = document.getElementById("productosContainer");
 
-// Mostrar productos destacados (sin imágenes)
+// Mostrar productos destacados (con imágenes)
 tienda.productos.filter(p => p.destacado).forEach(producto => {
   const col = document.createElement("div");
   col.className = "col-md-4 mb-3";
 
-  // Hacer toda la tarjeta clicable
+  // Aquí se agrega la imagen del producto junto con el nombre y el precio
   col.innerHTML = `
     <div class="card h-100 producto-tarjeta" data-id="${producto.id}" style="cursor:pointer;">
+      <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
       <div class="card-body">
         <h5 class="card-title">${producto.nombre}</h5>
         <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>

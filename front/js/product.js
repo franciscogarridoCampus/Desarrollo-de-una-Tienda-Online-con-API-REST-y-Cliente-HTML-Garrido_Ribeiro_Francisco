@@ -11,11 +11,12 @@ const detalle = document.getElementById("productoDetalle");
 
 if (producto) {
   // Obtener nombre de categoría de forma segura
-  const categoria = tienda.categorias.find(c => c.id === producto.categoria);
+  const categoria = tienda.categorias.find(c => c.id === producto.id_categoria);
   const nombreCategoria = categoria ? categoria.nombre : "Sin categoría";
 
   detalle.innerHTML = `
     <div class="card-body">
+      <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
       <h5 class="card-title">${producto.nombre}</h5>
       <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
       <p class="card-text">Categoría: ${nombreCategoria}</p>

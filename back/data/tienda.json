@@ -1,29 +1,156 @@
 {
   "categorias": [
-    { "id": 1, "nombre": "Periféricos" },
-    { "id": 2, "nombre": "Almacenamiento" }
+       { "id": 1, "nombre": "Periféricos", "imagen": "../front//img/perifericos.jpg" },
+    { "id": 2, "nombre": "Almacenamiento", "imagen": "../front//img/almacenamiento.jpg" },
+    { "id": 3, "nombre": "Monitores", "imagen": "../front//img/monitores.jpg" },
+    { "id": 4, "nombre": "Componentes", "imagen": "../front//img/componentes.jpg" },
+    { "id": 5, "nombre": "Audio", "imagen": "../front//img/audio.jpg" }
   ],
+
   "productos": [
     {
       "id": 1,
-      "nombre": "Teclado mecánico",
+      "nombre": "Teclado mecánico RGB",
       "precio": 49.99,
-      "categoria": "Periféricos",
-      "destacado": true
+      "id_categoria": 1,
+      "destacado": true,
+      "descripcion": "Teclado mecánico con switches azules y retroiluminación RGB.",
+      "imagen": "../front/img/teclado_rgb.jpg"
     },
     {
       "id": 2,
-      "nombre": "Ratón gamer",
+      "nombre": "Ratón gamer 16000 DPI",
       "precio": 29.99,
-      "categoria": "Periféricos",
-      "destacado": true
+      "id_categoria": 1,
+      "destacado": true,
+      "descripcion": "Ratón gaming ergonómico con sensor óptico de alta precisión.",
+      "imagen": "../front/img/raton_gamer.jpg"
     },
     {
       "id": 3,
-      "nombre": "Disco SSD",
+      "nombre": "Alfombrilla extended",
+      "precio": 14.99,
+      "id_categoria": 1,
+      "destacado": false,
+      "descripcion": "Alfombrilla XL con superficie optimizada para gaming.",
+      "imagen": "../front/img/alfombrilla_extended.jpg"
+    },
+    {
+      "id": 4,
+      "nombre": "Teclado inalámbrico compacto",
+      "precio": 39.99,
+      "id_categoria": 1,
+      "destacado": false,
+      "descripcion": "Teclado bluetooth compacto con batería recargable.",
+      "imagen": "../front/img/teclado_inalambrico_compacto.jpg"
+    },
+    {
+      "id": 5,
+      "nombre": "Disco SSD 500GB",
       "precio": 79.99,
-      "categoria": "Almacenamiento",
-      "destacado": false
+      "id_categoria": 2,
+      "destacado": false,
+      "descripcion": "SSD SATA III con gran velocidad de lectura y escritura.",
+      "imagen": "../front/img/ssd_500gb.jpg"
+    },
+    {
+      "id": 6,
+      "nombre": "HDD 1TB 7200RPM",
+      "precio": 49.99,
+      "id_categoria": 2,
+      "destacado": false,
+      "descripcion": "Disco duro mecánico para almacenamiento masivo.",
+      "imagen": "../front/img/hdd_1tb.jpg"
+    },
+    {
+      "id": 7,
+      "nombre": "SSD NVMe 1TB",
+      "precio": 129.99,
+      "id_categoria": 2,
+      "destacado": true,
+      "descripcion": "SSD ultrarrápido NVMe para equipos gaming o profesionales.",
+      "imagen": "../front/img/ssd_nvme_1tb.jpg"
+    },
+    {
+      "id": 8,
+      "nombre": "Monitor 24'' Full HD 75Hz",
+      "precio": 129.99,
+      "id_categoria": 3,
+      "destacado": true,
+      "descripcion": "Pantalla IPS con colores vibrantes y ángulos amplios.",
+      "imagen": "../front/img/monitor_24_fhd_75hz.jpg"
+    },
+    {
+      "id": 9,
+      "nombre": "Monitor 27'' 144Hz",
+      "precio": 259.99,
+      "id_categoria": 3,
+      "destacado": true,
+      "descripcion": "Monitor gaming de alta tasa de refresco para fluidez máxima.",
+      "imagen": "../front/img/monitor_27_144hz.jpg"
+    },
+    {
+      "id": 10,
+      "nombre": "Monitor ultrawide 34''",
+      "precio": 499.99,
+      "id_categoria": 3,
+      "destacado": false,
+      "descripcion": "Pantalla curva 21:9 ideal para multitarea y diseño.",
+      "imagen": "../front/img/monitor_ultrawide_34.jpg"
+    },
+    {
+      "id": 11,
+      "nombre": "Tarjeta gráfica RTX 4060",
+      "precio": 349.99,
+      "id_categoria": 4,
+      "destacado": true,
+      "descripcion": "GPU eficiente de nueva generación con DLSS 3.",
+      "imagen": "../front/img/rtx_4060.jpg"
+    },
+    {
+      "id": 12,
+      "nombre": "Procesador Intel i5 12400F",
+      "precio": 189.99,
+      "id_categoria": 4,
+      "destacado": false,
+      "descripcion": "Procesador de 6 núcleos ideal para gaming y productividad.",
+      "imagen": "../front/img/procesador_i5_12400f.jpg"
+    },
+    {
+      "id": 13,
+      "nombre": "Memoria RAM 16GB DDR4",
+      "precio": 54.99,
+      "id_categoria": 4,
+      "destacado": false,
+      "descripcion": "Kit de 2x8GB para alto rendimiento.",
+      "imagen": "../front/img/memoria_ram_16gb.jpg"
+    },
+    {
+      "id": 14,
+      "nombre": "Auriculares gaming con micrófono",
+      "precio": 39.99,
+      "id_categoria": 5,
+      "destacado": true,
+      "descripcion": "Auriculares con sonido envolvente y micrófono flexible.",
+      "imagen": "../front/img/auriculares_gaming.jpg"
+    },
+    {
+      "id": 15,
+      "nombre": "Altavoces 2.1",
+      "precio": 59.99,
+      "id_categoria": 5,
+      "destacado": false,
+      "descripcion": "Sistema de altavoces con subwoofer para sonido potente.",
+      "imagen": "../front/img/altavoces_21.jpg"
+    },
+    {
+      "id": 16,
+      "nombre": "Micrófono USB de estudio",
+      "precio": 69.99,
+      "id_categoria": 5,
+      "destacado": false,
+      "descripcion": "Micrófono ideal para streaming, podcasts y videollamadas.",
+      "imagen": "../front/img/microfono_usb.jpg"
     }
   ]
 }

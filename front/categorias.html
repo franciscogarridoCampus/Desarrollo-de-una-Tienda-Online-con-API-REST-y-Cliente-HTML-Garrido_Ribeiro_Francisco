@@ -22,8 +22,17 @@
 </nav>
 
 <div class="container mt-4">
-  <h2>Categorías</h2>
-  <div class="row" id="categoriasContainer"></div>
+  <h2>Productos</h2>
+  
+  <!-- Filtro de categoría -->
+  <div class="mb-4">
+    <label for="categoryFilter" class="form-label">Filtrar por categoría</label>
+    <select id="categoryFilter" class="form-select">
+      <option value="all">Todos</option> <!-- Opción para mostrar todos los productos -->
+    </select>
+  </div>
+  
+  <div id="productosContainer" class="row"></div> <!-- Contenedor de productos filtrados -->
 </div>
 
 <script src="js/categorias.js"></script>
